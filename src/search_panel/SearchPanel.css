@@ -1,0 +1,6 @@
+.search-panel {
+    display: inline-flex;
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 1vh;
+}
