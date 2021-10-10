@@ -59,23 +59,24 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <FormGroup sx={{display: "inline"}}>
             <FormControlLabel control={<Checkbox defaultChecked />} label="Agricultural" />
             <FormControlLabel control={<Checkbox defaultChecked />} label="Non-Agricultural" />
           </FormGroup>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Stack direction="row">
-            <div>
-              <Typography>Months Experience</Typography>
-            </div>
-            <div>
-              <Slider defaultValue={0} max={12} valueLabelDisplay="auto" aria-label="slider-experience-required" />
-            </div>
+        <MenuItem>
+          <Stack direction="column" sx={{minWidth: "100%"}}>
+            <Typography> Months Experience </Typography>
+            <Slider defaultValue={0} max={12} size="small" valueLabelDisplay="auto" aria-label="slider-experience-required" />
           </Stack>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem>
+          <Stack direction="column" sx={{minWidth: "100%"}}>
+            <Typography>Hours per Week</Typography>
+            <Slider defaultValue={40} max={50} size="small" valueLabelDisplay="auto" aria-label="slider-hours" />
+          </Stack>
+        </MenuItem>
       </Menu>
     </div>
   );

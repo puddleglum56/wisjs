@@ -8,7 +8,7 @@ function SearchBar() {
 
   return (
   <>
-  <FormControl className="search-select" sx={{minWidth: "20%"}}>
+  <FormControl className="search-select" sx={{minWidth: "30%"}}>
       <InputLabel>Search type</InputLabel>
       <Select
       value={age}
@@ -16,13 +16,11 @@ function SearchBar() {
       size="small"
       onChange={handleChange}
       >
-        <MenuItem value="field1">Field 1</MenuItem>
-        <MenuItem value="field2">Field 2</MenuItem>
-        <MenuItem value="field3">Field 3</MenuItem>
+        <MenuItem value="job-title">Job Title</MenuItem>
       </Select>
     </FormControl>
-    <TextField variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "30%"}}/>
-    <Button variant="contained" className="search-button" sx={{marginLeft: "1vh", maxWidth: "5%"}}>Search</Button>
+    <TextField variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "40%"}}/>
+    <Button variant="contained" className="search-button" sx={{marginLeft: "1vw", maxWidth: "5%"}}>Search</Button>
   </>
   );
 }
