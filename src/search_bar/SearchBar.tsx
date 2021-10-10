@@ -1,20 +1,23 @@
 import './SearchBar.css';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-
-function handleChange() {};
+import { useAppSelector, useAppDispatch } from '../hooks'
+import { setSearchType } from './SearchBarSlice'
+import { SelectChangeEvent } from '@mui/material/Select';
 
 function SearchBar() {
-  const age : Number = 0;
+
+  const dispatch = useAppDispatch()
+  const searchType : string = useAppSelector((state) => state.searchBar.searchType);
 
   return (
   <>
   <FormControl className="search-select" sx={{minWidth: "30%"}}>
       <InputLabel>Search type</InputLabel>
       <Select
-      value={age}
+      value={searchType}
       label="Search type"
       size="small"
-      onChange={handleChange}
+      onChange={(event: SelectChangeEvent) => dispatch(setSearchType(event.target.value as string))}
       >
         <MenuItem value="job-title">Job Title</MenuItem>
       </Select>
