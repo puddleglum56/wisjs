@@ -10,7 +10,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setHours, setRequiredExperience, toggleAgricultural, toggleNonagricultural } from './AdvancedOptionsMenuSlice';
-import { ChangeEvent } from 'react';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
