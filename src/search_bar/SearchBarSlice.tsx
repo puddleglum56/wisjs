@@ -4,11 +4,13 @@ import type { RootState } from '../store'
 // Define a type for the slice state
 interface SearchBarState{
   searchType: string;
+  search: string;
 }
 
 // Define the initial state using that type
 const initialState: SearchBarState = {
   searchType: 'job-title',
+  search: '*',
 }
 
 export const searchBarSlice = createSlice({
@@ -20,8 +22,11 @@ export const searchBarSlice = createSlice({
     setSearchType: (state, action: PayloadAction<string>) => {
       state.searchType = action.payload
     },
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload
+    },
   },
 })
 
-export const { setSearchType } = searchBarSlice.actions; 
+export const { setSearchType, setSearch } = searchBarSlice.actions; 
 export default searchBarSlice.reducer

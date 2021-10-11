@@ -8,25 +8,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
-const marks = [
-  {
-    value: 0,
-    label: '0°C',
-  },
-  {
-    value: 20,
-    label: '20°C',
-  },
-  {
-    value: 37,
-    label: '37°C',
-  },
-  {
-    value: 100,
-    label: '100°C',
-  },
-];
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setHours, setRequiredExperience, toggleAgricultural, toggleNonagricultural } from './AdvancedOptionsMenuSlice';
+import { ChangeEvent } from 'react';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -37,6 +21,12 @@ export default function BasicMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const dispatch = useAppDispatch()
+  const  agricultural : boolean = useAppSelector((state) => state.advancedOptions.agricultural);
+  const  nonagricultural : boolean = useAppSelector((state) => state.advancedOptions.nonagricultural);
+  const  requiredExperience : number = useAppSelector((state) => state.advancedOptions.requiredExperience);
+  const  hours : number = useAppSelector((state) => state.advancedOptions.hours);
 
   return (
     <div>
@@ -61,20 +51,20 @@ export default function BasicMenu() {
       >
         <MenuItem>
           <FormGroup sx={{display: "inline"}}>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Agricultural" />
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Non-Agricultural" />
+            <FormControlLabel control={<Checkbox onChange={() => dispatch(toggleAgricultural())} checked={agricultural} />} label="Agricultural" />
+            <FormControlLabel control={<Checkbox onChange={() => dispatch(toggleNonagricultural())} checked={nonagricultural} />} label="Non-Agricultural" />
           </FormGroup>
         </MenuItem>
         <MenuItem>
           <Stack direction="column" sx={{minWidth: "100%"}}>
             <Typography> Months Experience </Typography>
-            <Slider defaultValue={0} max={12} size="small" valueLabelDisplay="auto" aria-label="slider-experience-required" />
+            <Slider onChangeCommitted={(_, value) => dispatch(setRequiredExperience(value as number))} defaultValue={requiredExperience} max={12} size="small" valueLabelDisplay="auto" aria-label="slider-experience-required" />
           </Stack>
         </MenuItem>
         <MenuItem>
           <Stack direction="column" sx={{minWidth: "100%"}}>
             <Typography>Hours per Week</Typography>
-            <Slider defaultValue={40} max={50} size="small" valueLabelDisplay="auto" aria-label="slider-hours" />
+            <Slider onChangeCommitted={(_, value) => dispatch(setHours(value as number))} defaultValue={hours} max={50} size="small" valueLabelDisplay="auto" aria-label="slider-hours" />
           </Stack>
         </MenuItem>
       </Menu>

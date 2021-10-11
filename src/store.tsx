@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import searchBarReducer from "./search_bar/SearchBarSlice"
+import advancedOptionsReducer from "./advanced_options_menu/AdvancedOptionsMenuSlice"
 
 export const store = configureStore({
   reducer: {
       searchBar: searchBarReducer,
+      advancedOptions: advancedOptionsReducer,
   },
 })
 
