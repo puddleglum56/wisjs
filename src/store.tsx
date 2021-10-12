@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import searchBarReducer from "./search_bar/SearchBarSlice"
 import advancedOptionsReducer from "./advanced_options_menu/AdvancedOptionsMenuSlice"
+import { keysApi } from "./keysApi"
+import { seasonalJobsSearchApi } from "./searchApi"
 
 export const store = configureStore({
   reducer: {
       searchBar: searchBarReducer,
       advancedOptions: advancedOptionsReducer,
+      [keysApi.reducerPath]: keysApi.reducer,
+      [seasonalJobsSearchApi.reducerPath]: seasonalJobsSearchApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(keysApi.middleware, seasonalJobsSearchApi.middleware)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
