@@ -1,5 +1,8 @@
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import GoogleMapReact from 'google-map-react'
+import { useAppSelector } from '../hooks';
 import { useGetKeysQuery } from '../keysApi';
+import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import './Map.css'
 import Pin from './Pin';
 
@@ -16,27 +19,42 @@ type MapProps = {
 
 
 export default function Map({location, defaultZoom}: MapProps) {
-  const { data, error, isLoading } = useGetKeysQuery()
+  const keyQuery = useGetKeysQuery()
+
+  const searchQueryArgs : SearchQueryArgs = {
+    search : useAppSelector((state) => state.searchBar.search),
+    version : '2020-06-30',
+    searchType : useAppSelector((state) => state.searchBar.searchType),
+    requiredExperience : useAppSelector((state) => state.advancedOptions.requiredExperience),
+    includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
+    includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
+    hours : useAppSelector((state) => state.advancedOptions.hours),
+  }
+
+  // TODO: Now we gotta get the data out of the store and load it into the map :)
+  const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
 
   return (
     <div className="map">
         <div className="google-map">
-          {error ? (
+          {keyQuery.error ? (
             <>Oh no, there was an error</>
-          ) : isLoading ? (
+          ) : keyQuery.isLoading ? (
             <>Loading...</>
-          ) : data ? (
+          ) : keyQuery.data ? (
             <>
               <GoogleMapReact
-                bootstrapURLKeys={{ key: data.googleMapsAPI}}
+                bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
                 defaultCenter={location}
                 defaultZoom={defaultZoom}
               >
-                <Pin
-                  lat={location.lat}
-                  lng={location.lng}
-                  text={location.address}
-                />
+                {searchQuery.data ? (
+                  <Pin
+                    lat={location.lat}
+                    lng={location.lng}
+                    text={location.address}
+                  />
+                ) : null }
               </GoogleMapReact>
             </>
           ) : null}
