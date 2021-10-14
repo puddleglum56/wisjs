@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
 interface SearchBarState{
-  searchType: string;
+  searchType: string[];
   search: string;
 }
 
 // Define the initial state using that type
 const initialState: SearchBarState = {
-  searchType: 'job-title',
-  search: '*',
+  searchType: ['job_title'],
+  search: '',
 }
 
 export const searchBarSlice = createSlice({
@@ -18,7 +18,7 @@ export const searchBarSlice = createSlice({
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setSearchType: (state, action: PayloadAction<string>) => {
+    setSearchType: (state, action: PayloadAction<string[]>) => {
       state.searchType = action.payload
     },
     setSearch: (state, action: PayloadAction<string>) => {

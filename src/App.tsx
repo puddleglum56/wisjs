@@ -4,16 +4,15 @@ import SearchPanel from './search_panel/SearchPanel';
 
 function App() {
 
-  const location = {
-    address: '1600 Amphitheatre Parkway, Mountain View, california.',
-    lat: 37.42216,
-    lng: -122.08427,
+  const center = {
+    lat: 40.51367862028704,
+    lng: -100.98148879287625
   }
 
   return (
     <>
       <SearchPanel />
-      <Map location={location} defaultZoom={20} />
+      <Map center={center} defaultZoom={4} />
     </>
   );
 }

@@ -1,3 +1,19 @@
+export type SeasonalJobSearchResponse = {
+    "@odata.context": string,
+    "@odata.count": number,
+    "@search.facets": JobCounts, 
+    "value": Job[],
+}
+
+export type JobCount = {
+    "count": number,
+    "value": string,
+}
+
+export type JobCounts = {
+    "job_title": JobCount[]
+}
+
 export type JobCoord = {
     'type': string,
     'coordinates': number[],
@@ -24,8 +40,8 @@ export type Job = {
  'full_time': boolean,
  'hourly_work_schedule_am': string, 
  'hourly_work_schedule_pm': string, 
- 'begin_date': string,
- 'end_date': string,
+ 'begin_date': Date,
+ 'end_date': Date,
  'emp_experience_reqd': boolean, 
  'emp_exp_num_months': number,
  'special_req': string,

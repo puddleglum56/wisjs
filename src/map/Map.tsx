@@ -1,25 +1,25 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import GoogleMapReact from 'google-map-react'
-import { useAppSelector } from '../hooks';
-import { useGetKeysQuery } from '../keysApi';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
+import { Job } from '../types/Job';
 import './Map.css'
+import { setMapBounds } from './MapSlice';
 import Pin from './Pin';
 
 type Location = {
-  address: string,
   lat: number,
   lng: number
 }
 
 type MapProps = {
-  location: Location,
+  center: Location,
   defaultZoom: number
 }
 
 
-export default function Map({location, defaultZoom}: MapProps) {
-  const keyQuery = useGetKeysQuery()
+export default function Map(mapProps: MapProps) {
+  const dispatch = useAppDispatch()
 
   const searchQueryArgs : SearchQueryArgs = {
     search : useAppSelector((state) => state.searchBar.search),
@@ -29,6 +29,7 @@ export default function Map({location, defaultZoom}: MapProps) {
     includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
     includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
     hours : useAppSelector((state) => state.advancedOptions.hours),
+    mapBounds : useAppSelector((state) => state.map.bounds)
   }
 
   // TODO: Now we gotta get the data out of the store and load it into the map :)
@@ -37,27 +38,19 @@ export default function Map({location, defaultZoom}: MapProps) {
   return (
     <div className="map">
         <div className="google-map">
-          {keyQuery.error ? (
-            <>Oh no, there was an error</>
-          ) : keyQuery.isLoading ? (
-            <>Loading...</>
-          ) : keyQuery.data ? (
-            <>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
-                defaultCenter={location}
-                defaultZoom={defaultZoom}
-              >
-                {searchQuery.data ? (
-                  <Pin
-                    lat={location.lat}
-                    lng={location.lng}
-                    text={location.address}
-                  />
-                ) : null }
-              </GoogleMapReact>
-            </>
-          ) : null}
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: 'AIzaSyA-3X7TKl4j6TA0jrbvrDhTg4MiqUZbs7w'}}
+            //bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
+            defaultCenter={mapProps.center}
+            defaultZoom={mapProps.defaultZoom}
+            onChange={(event: GoogleMapReact.ChangeEventValue) => dispatch(setMapBounds(event.bounds))}>
+            {searchQuery.data ? (
+              searchQuery.data.value.flatMap((job : Job) => job.coord ?
+                [<Pin key={job.case_id} lat={job.coord.coordinates[1]} lng={job.coord.coordinates[0]} job={job} />] : 
+                []
+              )
+            ) : null }
+          </GoogleMapReact>
         </div>
     </div>
   );
