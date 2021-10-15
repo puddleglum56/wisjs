@@ -32,7 +32,7 @@ export const seasonalJobsSearchApi = createApi({
           'searchMode': 'any',
           'count': true,
           'filter': (
-            `active eq true and display eq true and geo.intersects(coord, geography'POLYGON((${args.mapBounds.nw.lng} ${args.mapBounds.nw.lat}, ${args.mapBounds.sw.lng} ${args.mapBounds.sw.lat}, ${args.mapBounds.se.lng} ${args.mapBounds.se.lat}, ${args.mapBounds.ne.lng} ${args.mapBounds.ne.lat}, ${args.mapBounds.nw.lng} ${args.mapBounds.nw.lat}))')`),
+            `active eq true and display eq true and work_hour_num_basic le ${args.hours} and emp_exp_num_months le ${args.requiredExperience} ${!args.includeAgricultural ? "and visa_class eq 'H-2B'" : ''}${(!args.includeNonagricultural) ? "and visa_class eq 'H-2A'" : ''} and geo.intersects(coord, geography'POLYGON((${args.mapBounds.nw.lng} ${args.mapBounds.nw.lat}, ${args.mapBounds.sw.lng} ${args.mapBounds.sw.lat}, ${args.mapBounds.se.lng} ${args.mapBounds.se.lat}, ${args.mapBounds.ne.lng} ${args.mapBounds.ne.lat}, ${args.mapBounds.nw.lng} ${args.mapBounds.nw.lat}))')`),
           'scoringProfile': 'test_profile',
           'facets': ['job_title, count:4, sort:count'],
           'orderby': 'search.score() desc',

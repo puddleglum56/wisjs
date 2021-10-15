@@ -57,7 +57,7 @@ export default function BasicMenu() {
         <MenuItem>
           <Stack direction="column" sx={{minWidth: "100%"}}>
             <Typography> Months Experience </Typography>
-            <Slider onChangeCommitted={(_, value) => dispatch(setRequiredExperience(value as number))} defaultValue={requiredExperience} max={12} size="small" valueLabelDisplay="auto" aria-label="slider-experience-required" />
+            <Slider onChangeCommitted={(_, value) => dispatch(setRequiredExperience(value as number))} defaultValue={requiredExperience} max={24} size="small" valueLabelDisplay="auto" aria-label="slider-experience-required" />
           </Stack>
         </MenuItem>
         <MenuItem>
