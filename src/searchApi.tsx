@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { MapBounds } from './map/MapSlice'
-import { Job, SeasonalJobSearchResponse } from './types/Job'
+import { SeasonalJobSearchResponse } from './types/Job'
 
 export type SearchQueryArgs = {
   version: string,
@@ -26,7 +26,7 @@ export const seasonalJobsSearchApi = createApi({
         body: {
           'search': `/.*${args.search}~.*/`,
           'searchFields': args.searchType.join(', '),
-          'top': 100,
+          'top': 1000,
           'skip': 0,
           'queryType': 'simple',
           'searchMode': 'any',

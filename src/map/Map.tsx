@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import { Job } from '../types/Job';
 import './Map.css'
-import { setMapBounds } from './MapSlice';
+import { setMapZoom, setMapBounds } from './MapSlice';
 import Pin from './Pin';
 
 type Location = {
@@ -32,8 +32,12 @@ export default function Map(mapProps: MapProps) {
     mapBounds : useAppSelector((state) => state.map.bounds)
   }
 
-  // TODO: Now we gotta get the data out of the store and load it into the map :)
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
+
+  const onMapChange = (event: GoogleMapReact.ChangeEventValue) => {
+    dispatch(setMapZoom(event.zoom))
+    dispatch(setMapBounds(event.bounds))
+  }
 
   return (
     <div className="map">
@@ -43,7 +47,7 @@ export default function Map(mapProps: MapProps) {
             //bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
             defaultCenter={mapProps.center}
             defaultZoom={mapProps.defaultZoom}
-            onChange={(event: GoogleMapReact.ChangeEventValue) => dispatch(setMapBounds(event.bounds))}>
+            onChange={(event: GoogleMapReact.ChangeEventValue) => onMapChange(event)}>
             {searchQuery.data ? (
               searchQuery.data.value.flatMap((job : Job) => job.coord ?
                 [<Pin key={job.case_id} lat={job.coord.coordinates[1]} lng={job.coord.coordinates[0]} job={job} />] : 

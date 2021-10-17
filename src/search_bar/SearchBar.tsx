@@ -1,14 +1,26 @@
 import './SearchBar.css';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../hooks'
 import { setSearchType, setSearch } from './SearchBarSlice'
 import { SelectChangeEvent } from '@mui/material/Select';
-import { useRef } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 function SearchBar() {
   const dispatch = useAppDispatch()
-  const textFieldRef = useRef('')
   const searchType = useAppSelector((state) => state.searchBar.searchType)
+
+  const [searchValue, setSearchValue] = useState("");
+
+  const stopTypingTimeout : number = 500;
+
+  const handleOnChange = (event : ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => dispatch(setSearch(searchValue)), stopTypingTimeout);
+    return () => clearTimeout(timeoutId);
+  }, [searchValue]);
 
   return (
   <>
@@ -32,8 +44,7 @@ function SearchBar() {
         <MenuItem value="case_number">Case Number</MenuItem>
       </Select>
     </FormControl>
-    <TextField onChange={(event) => textFieldRef.current = event.target.value } variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "40%"}}/>
-    <Button onClick={() => dispatch(setSearch(textFieldRef.current))} variant="contained" className="search-button" sx={{marginLeft: "1vw", maxWidth: "5%"}}>Search</Button>
+    <TextField onChange={(event) => handleOnChange(event)} variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "40%"}}/>
   </>
   );
 }

@@ -4,6 +4,7 @@ import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 import { Job } from '../types/Job';
 import styled from '@mui/material/styles/styled';
 import { Button, Stack, Typography } from '@mui/material';
+import { useAppSelector } from '../hooks';
 
 type PinProps = {
     lat: number,
@@ -27,6 +28,17 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 export default function Pin(props: PinProps) {
+  const mapZoom = useAppSelector((state) => state.map.zoom)
+  const pinMaxSize = 1.5
+  const pinMinSize = 0.5
+  const minZoom = 4
+  const maxZoom = 10
+
+  const hoverSizeChange = 0.2
+
+  const map = (value: number, x1: number, y1: number, x2: number, y2: number) => (value - x1) * (y2 - x2) / (y1 - x1) + x2
+  const pinSize : string = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize).toString() + "em"
+  const pinHoverSize : string = (map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize) + hoverSizeChange).toString() + "em"
 
   return (
     <LightTooltip placement="right-start" arrow title={
@@ -41,7 +53,7 @@ export default function Pin(props: PinProps) {
         <Button variant="contained" sx={{marginTop: "1vh", marginBottom: "1vh", marginRight: "50%", maxWidth: "30%"}}>Apply</Button>
       </Stack>
       }>
-      <PlaceIcon sx={{color: "#1565C0", transform: "translate(-50%, -50%)", height: props.$hover ? "1.5em" : "1em", width: props.$hover ? "1.5em" : "1em"}} />
+      <PlaceIcon sx={{color: "#1565C0", transform: "translate(-50%, -50%)", height: props.$hover ? pinHoverSize : pinSize, width: props.$hover ? pinHoverSize : pinSize}} />
     </LightTooltip>
   );
 }
