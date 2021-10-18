@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <SearchPanel />
-      <Stack direction="row">
+      <Stack direction="row" sx={{minWidth: "100%"}}>
         <ResultsList />
         <Map center={center} defaultZoom={zoom} />
       </Stack>

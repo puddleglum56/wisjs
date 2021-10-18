@@ -6,14 +6,16 @@ import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { useAppSelector } from '../hooks';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
+import { Job } from '../types/Job';
 
 function renderRow(props: ListChildComponentProps) {
-  const { index, style } = props;
+  const { index, style, data } = props;
+  const job : Job = data[index]
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton>
-        <ListItemText primary={`Item ${index + 1}`} />
+        <ListItemText primary={job.job_title} />
       </ListItemButton>
     </ListItem>
   );
@@ -36,17 +38,20 @@ export default function ResultsList() {
 
   return (
     <Box
-      sx={{ width: '25vw', height: '82vh', bgcolor: 'background.paper' }}
+      sx={{ width: '30vw', height: '82vh', bgcolor: 'background.paper' }}
     >
-      <FixedSizeList
-        height={593}
-        width="35vw"
-        itemSize={110}
-        itemCount={200}
-        overscanCount={5}
-      >
-        {renderRow}
-      </FixedSizeList>
+      {searchQuery.data ? (
+        <FixedSizeList
+          height={593}
+          width="30vw"
+          itemSize={110}
+          itemCount={searchQuery.data.value.length}
+          overscanCount={5}
+          itemData={searchQuery.data.value}
+        >
+          {renderRow}
+        </FixedSizeList>
+      ) : null }
     </Box>
   );
 }
