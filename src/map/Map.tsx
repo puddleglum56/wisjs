@@ -32,6 +32,8 @@ export default function Map(mapProps: MapProps) {
     mapBounds : useAppSelector((state) => state.map.bounds)
   }
 
+  const drawerOpen = useAppSelector((state) => state.moreInfo.open)
+
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
 
   const onMapChange = (event: GoogleMapReact.ChangeEventValue) => {

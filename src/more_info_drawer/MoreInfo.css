@@ -1,0 +1,7 @@
+.search-input .MuiOutlinedInput-root {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.search-select .MuiOutlinedInput-root {
+  border-radius: 4px 0px 0px 4px;
+}

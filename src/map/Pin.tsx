@@ -3,8 +3,8 @@ import pinImage from './custom_location_pin.png'
 import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 import { Job } from '../types/Job';
 import styled from '@mui/material/styles/styled';
-import { Button, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setDrawerOpen } from '../more_info_drawer/MoreInfoSlice';
 
 type PinProps = {
     lat: number,
@@ -29,6 +29,8 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 export default function Pin(props: PinProps) {
   const mapZoom = useAppSelector((state) => state.map.zoom)
+  const dispatch = useAppDispatch()
+
   const pinMaxSize = 0.3
   const pinMinSize = 0.08
   const minZoom = 4
@@ -43,6 +45,6 @@ export default function Pin(props: PinProps) {
   const pinStyle = {cursor: "pointer", color: "#1565C0", transform: `translate(-50%, -50%) scale(${props.$hover ? pinHoverSize : pinSize})`} 
 
   return (
-      <img style={pinStyle} src={pinImage} />
+      <img style={pinStyle} src={pinImage} onClick={() => dispatch(setDrawerOpen())} />
   );
 }

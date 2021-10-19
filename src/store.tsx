@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import searchBarReducer from "./search_bar/SearchBarSlice"
 import advancedOptionsReducer from "./advanced_options_menu/AdvancedOptionsMenuSlice"
+import moreInfoReducer from "./more_info_drawer/MoreInfoSlice"
 import mapReducer from "./map/MapSlice"
 import { keysApi } from "./keysApi"
 import { seasonalJobsSearchApi } from "./searchApi"
@@ -10,6 +11,7 @@ export const store = configureStore({
       searchBar: searchBarReducer,
       advancedOptions: advancedOptionsReducer,
       map: mapReducer,
+      moreInfo: moreInfoReducer,
       [keysApi.reducerPath]: keysApi.reducer,
       [seasonalJobsSearchApi.reducerPath]: seasonalJobsSearchApi.reducer,
   },
