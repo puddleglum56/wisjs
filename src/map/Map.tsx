@@ -18,8 +18,11 @@ type MapProps = {
 }
 
 
-export default function Map(mapProps: MapProps) {
+export default function Map() {
   const dispatch = useAppDispatch()
+
+  const center = useAppSelector((state) => state.map.center)
+  const zoom = useAppSelector((state) => state.map.zoom)
 
   const searchQueryArgs : SearchQueryArgs = {
     search : useAppSelector((state) => state.searchBar.search),
@@ -43,12 +46,12 @@ export default function Map(mapProps: MapProps) {
 
   return (
     <div className="map">
-        <div className="google-map">
+        <div className="google-map" style={{width: drawerOpen ? "40vw" : "80vw"}}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: 'AIzaSyA-3X7TKl4j6TA0jrbvrDhTg4MiqUZbs7w'}}
             //bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
-            defaultCenter={mapProps.center}
-            defaultZoom={mapProps.defaultZoom}
+            center={center}
+            zoom={zoom}
             onChange={(event: GoogleMapReact.ChangeEventValue) => onMapChange(event)}>
             {searchQuery.data ? (
               searchQuery.data.value.flatMap((job : Job) => job.coord ?

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Job } from '../types/Job'
 
-type GeoPoint = {
+export type GeoPoint = {
   lat: number,
   lng: number
 }
@@ -16,6 +17,7 @@ type MapState = {
   center: GeoPoint;
   zoom: number;
   bounds: MapBounds;
+  selectedJob: Job | null;
 }
 
 // Define the initial state using that type
@@ -30,7 +32,8 @@ const initialState: MapState = {
     se: {lat: 18.64609491842107, lng: -33.48148879287626},
     sw: {lat: 18.64609491842107, lng: -168.48148879287626}
   },
-  zoom: 4
+  zoom: 4,
+  selectedJob: null
 }
 
 export const mapSlice = createSlice({
@@ -46,8 +49,11 @@ export const mapSlice = createSlice({
     setMapCenter: (state, action: PayloadAction<GeoPoint>) => {
       state.center = action.payload;
     },
+    selectJob: (state, action: PayloadAction<Job>) => {
+      state.selectedJob = action.payload;
+    },
   },
 })
 
-export const { setMapZoom, setMapBounds, setMapCenter } = mapSlice.actions; 
+export const { selectJob, setMapZoom, setMapBounds, setMapCenter } = mapSlice.actions; 
 export default mapSlice.reducer

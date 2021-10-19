@@ -5,6 +5,7 @@ import { Job } from '../types/Job';
 import styled from '@mui/material/styles/styled';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setDrawerOpen } from '../more_info_drawer/MoreInfoSlice';
+import { selectJob } from './MapSlice';
 
 type PinProps = {
     lat: number,
@@ -38,6 +39,11 @@ export default function Pin(props: PinProps) {
 
   const hoverSizeChange = 0.05
 
+  const handleClick = () => {
+    dispatch(setDrawerOpen())
+    dispatch(selectJob(props.job))
+  }
+
   const map = (value: number, x1: number, y1: number, x2: number, y2: number) => (value - x1) * (y2 - x2) / (y1 - x1) + x2
   const pinSize = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize)
   const pinHoverSize = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize) + hoverSizeChange
@@ -45,6 +51,6 @@ export default function Pin(props: PinProps) {
   const pinStyle = {cursor: "pointer", color: "#1565C0", transform: `translate(-50%, -50%) scale(${props.$hover ? pinHoverSize : pinSize})`} 
 
   return (
-      <img style={pinStyle} src={pinImage} onClick={() => dispatch(setDrawerOpen())} />
+      <img style={pinStyle} src={pinImage} onClick={() => handleClick()} />
   );
 }

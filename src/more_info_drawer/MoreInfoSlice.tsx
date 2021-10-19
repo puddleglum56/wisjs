@@ -7,7 +7,7 @@ interface MoreInfoState{
 
 // Define the initial state using that type
 const initialState: MoreInfoState = {
-  open: true
+  open: false
 }
 
 export const moreInfoSlice = createSlice({
