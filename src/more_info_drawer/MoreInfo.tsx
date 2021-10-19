@@ -11,25 +11,6 @@ import { Button, Typography } from '@mui/material';
 
 const drawerWidth = "40vw";
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginRight: -drawerWidth,
-  ...(open && {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  }),
-}));
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -44,6 +25,14 @@ export default function MoreInfo() {
   const open = useAppSelector((state) => state.moreInfo.open)
   const job = useAppSelector((state) => state.map.selectedJob)
   const dispatch = useAppDispatch()
+
+  const wordToUpperCase = (word : string) => {
+    return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
+  }
+
+  const capitalize = (inString : string) => {
+    return inString.split(' ').map((word : string) => wordToUpperCase(word)).join(' ')
+  }
 
   return (
     <Drawer
@@ -66,11 +55,11 @@ export default function MoreInfo() {
       </DrawerHeader>
       { job ? 
         <Stack direction="column" sx={{marginLeft: "2vw"}}>
-          <Typography variant="h6">{job.job_title}</Typography>
+          <Typography variant="h6">{capitalize(job.job_title)}</Typography>
           <br />
           <Divider />
           <br />
-          <Typography variant="subtitle2">{job.worksite_city}, {job.worksite_state}</Typography>
+          <Typography variant="subtitle2">{capitalize(job.worksite_city)}, {capitalize(job.worksite_state)}</Typography>
           <br />
           <Typography variant="subtitle2">Pay:</Typography>
           <Typography>${job.basic_rate_from}-${job.basic_rate_to}</Typography>
