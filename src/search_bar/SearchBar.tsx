@@ -44,7 +44,7 @@ function SearchBar() {
         <MenuItem value="case_number">Case Number</MenuItem>
       </Select>
     </FormControl>
-    <TextField onChange={(event) => handleOnChange(event)} variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "40%"}}/>
+    <TextField placeholder='Try "farm"...' onChange={(event) => handleOnChange(event)} variant="outlined" size="small" className="search-input" sx={{backgroundColor: "white", minWidth: "40%"}}/>
   </>
   );
 }
