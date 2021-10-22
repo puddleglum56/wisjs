@@ -52,8 +52,15 @@ export const mapSlice = createSlice({
     selectJob: (state, action: PayloadAction<Job>) => {
       state.selectedJob = action.payload;
     },
+    // return the map to its initial state
+    resetMap: (state) => {
+      state.center = initialState.center;
+      state.bounds = initialState.bounds;
+      state.zoom = initialState.zoom;
+    }
   },
 })
 
-export const { selectJob, setMapZoom, setMapBounds, setMapCenter } = mapSlice.actions; 
+// Export the reducers
+export const { setMapZoom, setMapBounds, setMapCenter, selectJob, resetMap } = mapSlice.actions;
 export default mapSlice.reducer

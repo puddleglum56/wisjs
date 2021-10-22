@@ -1,10 +1,11 @@
+import { Button } from '@mui/material';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import GoogleMapReact from 'google-map-react'
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import { Job } from '../types/Job';
 import './Map.css'
-import { setMapZoom, setMapBounds } from './MapSlice';
+import { setMapZoom, setMapBounds, resetMap } from './MapSlice';
 import Pin from './Pin';
 
 export default function Map() {
@@ -48,6 +49,7 @@ export default function Map() {
             )
           ) : null }
         </GoogleMapReact>
+        <Button sx={{marginTop: "-10vh", marginLeft: "5vw"}} variant="contained" onClick={() => dispatch(resetMap())}>Reset Map</Button>
       </div>
     </div>
   );
