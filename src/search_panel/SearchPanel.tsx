@@ -24,7 +24,7 @@ function SearchPanel() {
     <div className="search-panel">
       <SearchBar />
       <BasicMenu />
-      { searchQuery.isLoading ?
+      { searchQuery.isFetching ?
       <CircularProgress sx={{marginLeft: "5vw"}} />
       :
       null }
