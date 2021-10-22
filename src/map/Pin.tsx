@@ -30,6 +30,10 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 export default function Pin(props: PinProps) {
   const mapZoom = useAppSelector((state) => state.map.zoom)
+  const selectedJob = useAppSelector((state) => state.map.selectedJob)
+
+  const thisPinSelected = (selectedJob == props.job)
+
   const dispatch = useAppDispatch()
 
   const pinMaxSize = 0.3
@@ -38,6 +42,7 @@ export default function Pin(props: PinProps) {
   const maxZoom = 10
 
   const hoverSizeChange = 0.05
+  const selectedSizeChange = 0.2
 
   const handleClick = () => {
     dispatch(setDrawerOpen())
@@ -47,8 +52,9 @@ export default function Pin(props: PinProps) {
   const map = (value: number, x1: number, y1: number, x2: number, y2: number) => (value - x1) * (y2 - x2) / (y1 - x1) + x2
   const pinSize = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize)
   const pinHoverSize = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize) + hoverSizeChange
+  const pinSelectedSize = map(mapZoom, minZoom, maxZoom, pinMinSize, pinMaxSize) + selectedSizeChange
 
-  const pinStyle = {cursor: "pointer", color: "#1565C0", transform: `translate(-50%, -50%) scale(${props.$hover ? pinHoverSize : pinSize})`} 
+  const pinStyle = {cursor: "pointer", color: "#1565C0", transform: `translate(-50%, -50%) scale(${thisPinSelected ? pinSelectedSize : (props.$hover ? pinHoverSize : pinSize)})`} 
 
   return (
       <img style={pinStyle} src={pinImage} onClick={() => handleClick()} />

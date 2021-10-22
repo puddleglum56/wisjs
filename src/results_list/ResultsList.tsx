@@ -11,6 +11,7 @@ import { Job } from '../types/Job';
 import { GeoPoint } from '../map/MapSlice';
 import { setDrawerOpen } from '../more_info_drawer/MoreInfoSlice';
 import { capitalize } from '../utility';
+import { Typography } from '@mui/material';
 
 function RenderRow(props: ListChildComponentProps) {
   const { index, style, data } = props;
@@ -43,7 +44,6 @@ export default function ResultsList() {
     includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
     includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
     hours : useAppSelector((state) => state.advancedOptions.hours),
-    mapBounds : useAppSelector((state) => state.map.bounds)
   }
 
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
@@ -66,7 +66,9 @@ export default function ResultsList() {
           >
             {RenderRow}
           </FixedSizeList>
-      ) : null }
+      ) : 
+      <Typography sx={{margin: "1vw"}}>No results to display.</Typography>
+       }
     </Box>
   );
 }

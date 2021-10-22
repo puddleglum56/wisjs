@@ -21,7 +21,6 @@ export default function Map() {
     includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
     includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
     hours : useAppSelector((state) => state.advancedOptions.hours),
-    mapBounds : useAppSelector((state) => state.map.bounds)
   }
 
   const drawerOpen = useAppSelector((state) => state.moreInfo.open)

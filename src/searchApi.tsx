@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { MapBounds } from './map/MapSlice'
 import { SeasonalJobSearchResponse } from './types/Job'
 
 export type SearchQueryArgs = {
@@ -10,7 +9,6 @@ export type SearchQueryArgs = {
   includeNonagricultural: boolean,
   requiredExperience: number,
   hours: number,
-  mapBounds: MapBounds
 }
 
 export const seasonalJobsSearchApi = createApi({
