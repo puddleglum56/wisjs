@@ -7,17 +7,6 @@ import './Map.css'
 import { setMapZoom, setMapBounds } from './MapSlice';
 import Pin from './Pin';
 
-type Location = {
-  lat: number,
-  lng: number
-}
-
-type MapProps = {
-  center: Location,
-  defaultZoom: number
-}
-
-
 export default function Map() {
   const dispatch = useAppDispatch()
 
@@ -46,21 +35,21 @@ export default function Map() {
 
   return (
     <div className="map">
-        <div className="google-map" style={{width: drawerOpen ? "40vw" : "80vw"}}>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: 'AIzaSyA-3X7TKl4j6TA0jrbvrDhTg4MiqUZbs7w'}}
-            //bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
-            center={center}
-            zoom={zoom}
-            onChange={(event: GoogleMapReact.ChangeEventValue) => onMapChange(event)}>
-            {searchQuery.data ? (
-              searchQuery.data.value.flatMap((job : Job) => job.coord ?
-                [<Pin key={job.case_id} lat={job.coord.coordinates[1]} lng={job.coord.coordinates[0]} job={job} />] : 
-                []
-              )
-            ) : null }
-          </GoogleMapReact>
-        </div>
+      <div className="google-map" style={{width: drawerOpen ? "40vw" : "80vw"}}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: 'AIzaSyA-3X7TKl4j6TA0jrbvrDhTg4MiqUZbs7w'}}
+          //bootstrapURLKeys={{ key: keyQuery.data.googleMapsAPI}}
+          center={center}
+          zoom={zoom}
+          onChange={(event: GoogleMapReact.ChangeEventValue) => onMapChange(event)}>
+          {searchQuery.data ? (
+            searchQuery.data.value.flatMap((job : Job) => job.coord ?
+              [<Pin key={job.case_id} lat={job.coord.coordinates[1]} lng={job.coord.coordinates[0]} job={job} />] : 
+              []
+            )
+          ) : null }
+        </GoogleMapReact>
+      </div>
     </div>
   );
 }

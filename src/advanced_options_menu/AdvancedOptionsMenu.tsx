@@ -30,7 +30,7 @@ export default function BasicMenu() {
   return (
     <div>
       <Button
-        sx={{marginLeft: "15%", minWidth: "100%"}}
+        sx={{marginLeft: "15%", minWidth: "100%", border: "#C4C4C4 solid 1px"}}
         id="basic-button"
         aria-controls="basic-menu"
         aria-haspopup="true"

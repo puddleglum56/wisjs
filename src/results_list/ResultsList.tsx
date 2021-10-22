@@ -5,10 +5,12 @@ import ListItemText from '@mui/material/ListItemText';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { selectJob, setMapCenter } from '../map/MapSlice';
+import { selectJob, setMapCenter, setMapZoom } from '../map/MapSlice';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import { Job } from '../types/Job';
 import { GeoPoint } from '../map/MapSlice';
+import { setDrawerOpen } from '../more_info_drawer/MoreInfoSlice';
+import { capitalize } from '../utility';
 
 function RenderRow(props: ListChildComponentProps) {
   const { index, style, data } = props;
@@ -18,12 +20,14 @@ function RenderRow(props: ListChildComponentProps) {
   const handleClick = () => {
     dispatch(selectJob(job))
     dispatch(setMapCenter({lng: job.coord.coordinates[0], lat: job.coord.coordinates[1]} as GeoPoint))
+    dispatch(setMapZoom(7))
+    dispatch(setDrawerOpen())
   }
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton onClick={() => handleClick()}>
-        <ListItemText primary={job.job_title} />
+      <ListItemButton onClick={() => handleClick()} sx={{width: "100%", height: "100%", borderBottom: "#C4C4C4 solid 1px"}}>
+        <ListItemText primary={capitalize(job.job_title)} />
       </ListItemButton>
     </ListItem>
   );
@@ -45,22 +49,23 @@ export default function ResultsList() {
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
 
   const listWidth = "20vw"
+  const listHeight = 0.84 * window.innerHeight
 
   return (
     <Box
-      sx={{ width: listWidth, height: '82vh', bgcolor: 'background.paper' }}
+      sx={{ minWidth: listWidth, minHeight: listHeight, width: listWidth, height: listHeight, bgcolor: 'background.paper', borderRight: "#C4C4C4 solid 1px" }}
     >
       {searchQuery.data ? (
-        <FixedSizeList
-          height={593}
-          width={listWidth}
-          itemSize={110}
-          itemCount={searchQuery.data.value.length}
-          overscanCount={5}
-          itemData={searchQuery.data.value}
-        >
-          {RenderRow}
-        </FixedSizeList>
+          <FixedSizeList
+            height={listHeight}
+            width={listWidth}
+            itemSize={110}
+            itemCount={searchQuery.data.value.length}
+            overscanCount={5}
+            itemData={searchQuery.data.value}
+          >
+            {RenderRow}
+          </FixedSizeList>
       ) : null }
     </Box>
   );

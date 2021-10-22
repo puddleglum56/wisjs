@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import './App.css';
+import Footer from './footer/Footer';
 import Map from './map/Map';
 import MoreInfo from './more_info_drawer/MoreInfo';
 import ResultsList from './results_list/ResultsList';
@@ -15,6 +15,7 @@ function App() {
         <Map />
         <MoreInfo />
       </Stack>
+      <Footer />
     </>
   );
 }
