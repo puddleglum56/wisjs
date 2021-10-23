@@ -11,12 +11,14 @@ import { Job } from '../types/Job';
 import { GeoPoint } from '../map/MapSlice';
 import { setDrawerOpen } from '../more_info_drawer/MoreInfoSlice';
 import { capitalize } from '../utility';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 function RenderRow(props: ListChildComponentProps) {
   const { index, style, data } = props;
   const job : Job = data[index]
   const dispatch = useAppDispatch()
+
+  const selectedJob = useAppSelector(state => state.map.selectedJob)
 
   const handleClick = () => {
     dispatch(selectJob(job))
@@ -27,8 +29,13 @@ function RenderRow(props: ListChildComponentProps) {
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton onClick={() => handleClick()} sx={{width: "100%", height: "100%", borderBottom: "#C4C4C4 solid 1px"}}>
-        <ListItemText primary={capitalize(job.job_title)} />
+      <ListItemButton onClick={() => handleClick()} sx={{width: "100%", height: "100%", borderBottom: "#C4C4C4 solid 1px", background: (selectedJob == job) ? "#ECF0F3" : "inherit"}}>
+        <Stack direction="column">
+          <Typography sx={{fontSize: "0.8rem", fontWeight: "bold"}}>{capitalize(job.job_title)}</Typography>
+          <Typography sx={{fontSize: "0.8rem"}}>{capitalize(job.worksite_city+', '+job.worksite_state)}</Typography>
+          <Typography sx={{fontSize: "0.8rem"}}>{new Date(job.begin_date).toLocaleDateString() + ' - ' + new Date(job.end_date).toLocaleDateString()}</Typography>
+          <Typography sx={{fontSize: "0.8rem"}}>{"$"+job.basic_rate_from+" per hour"}</Typography>
+        </Stack>
       </ListItemButton>
     </ListItem>
   );

@@ -8,7 +8,7 @@ interface SearchBarState{
 
 // Define the initial state using that type
 const initialState: SearchBarState = {
-  searchType: ['job_title'],
+  searchType: ["job_title","soc_title","employer_business_name","employer_trade_name","job_duties"],
   search: '',
 }
 

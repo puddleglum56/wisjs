@@ -2,25 +2,23 @@ import { styled, useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CloseIcon from '@mui/icons-material/Close';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setDrawerClose } from './MoreInfoSlice';
 import Stack from '@mui/material/Stack';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { capitalize } from '../utility';
 import { GeoPoint, selectJob, setMapCenter, setMapZoom } from '../map/MapSlice';
-import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
+import MapIcon from '@mui/icons-material/Map';
 
-const drawerWidth = "40vw";
+const drawerWidth = 0.4 * window.innerWidth;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
 }));
 
 export default function MoreInfo() {
@@ -42,9 +40,12 @@ export default function MoreInfo() {
       sx={{
         width: drawerWidth,
         flexShrink: 1,
+        borderLeft: "#C4C4C4 solid 1px",
         '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          top: '54px'
+          width: `${drawerWidth - 2}px`,
+          top: '55px',
+          height: "auto",
+          borderLeft: "none",
         },
       }}
       variant="persistent"
@@ -52,35 +53,61 @@ export default function MoreInfo() {
       open={open}
     >
       <DrawerHeader>
-        <Stack direction="row" sx={{alignItems: "center"}}>
-          <IconButton onClick={() => dispatch(setDrawerClose())}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon sx={{width: "30px", height: "30px"}} /> : <ChevronRightIcon sx={{width: "30px", height: "30px"}} />}
-          </IconButton>
           { job ? 
           <>
-          <Typography sx={{marginLeft: "1vw"}} variant="h5">{capitalize(job.job_title)}</Typography>
-          <IconButton sx={{marginLeft: "0.5vw"}} onClick={() => handleLocationClick()}>
-            <NotListedLocationIcon sx={{width: "20px", height: "20px"}} />
-          </IconButton>
+          <Typography sx={{marginLeft: "1vw", fontWeight: "bold"}} variant="h5">{capitalize(job.job_title)}</Typography>
           </>
           :
           null
           }
-        </Stack>
+          <IconButton sx={{width: "50px", height: "50px"}} onClick={() => dispatch(setDrawerClose())}>
+            <CloseIcon sx={{width: "30px", height: "30px"}}></CloseIcon>
+          </IconButton>
       </DrawerHeader>
       <Divider />
       { job ? 
-        <Stack direction="column" sx={{marginLeft: "2vw"}}>
-          <br />
-          <Typography variant="h5">{capitalize(job.worksite_city)}, {capitalize(job.worksite_state.toLowerCase())}</Typography>
-          <br />
-          <Typography variant="h6">Pay:</Typography>
-          <Typography>${job.basic_rate_from}-${job.basic_rate_to}</Typography>
-          <Typography variant="h6">Dates:</Typography>
-          <Typography>{new Date(job.begin_date).toLocaleDateString()} - {new Date(job.end_date).toLocaleDateString()}</Typography>
-          <Typography variant="h6">Hours:</Typography>
-          <Typography>{job.hourly_work_schedule_am} - {job.hourly_work_schedule_pm}</Typography>
-          <Button variant="contained" onClick={() => window.open(`https://seasonaljobs.dol.gov/jobs/${job.case_number}`,'_blank')} sx={{marginTop: "1vh", marginBottom: "1vh", marginRight: "50%", maxWidth: "30%"}}>Apply</Button>
+        <Stack direction="column" sx={{marginLeft: "1vw", marginTop: "1vh"}}>
+          <Stack direction="row">
+            <Typography variant="h5">{capitalize(job.worksite_city)}, {capitalize(job.worksite_state.toLowerCase())}</Typography>
+            <IconButton sx={{marginLeft: "0.5vw"}} onClick={() => handleLocationClick()}>
+              <MapIcon sx={{width: "20px", height: "20px"}} />
+            </IconButton>
+          </Stack>
+          <Stack direction="row" alignItems="center" marginTop="1vh" spacing={2}>
+            <Typography fontWeight="bold">Employer:</Typography>
+            <Typography>{job.employer_business_name}</Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Hourly wage:</Typography>
+            <Typography>${job.basic_rate_from}{(job.basic_rate_to != 0) ? `-${job.basic_rate_to}`:''}</Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Dates:</Typography>
+            <Typography>{new Date(job.begin_date).toLocaleDateString()} - {new Date(job.end_date).toLocaleDateString()}</Typography>
+          </Stack>
+          <Divider sx={{marginLeft: "-1vw", marginTop: "1vh", marginBottom: "1vh"}} />
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Shift:</Typography>
+            <Typography>{job.hourly_work_schedule_am} - {job.hourly_work_schedule_pm}</Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Hours per week:</Typography>
+            <Typography>{job.work_hour_num_basic}</Typography>
+          </Stack>
+          <Typography fontWeight="bold">Job Duties:</Typography>
+          <Box overflow="auto" maxHeight="28vh" marginRight="1vw"> 
+            <Typography>{job.job_duties}</Typography>
+          </Box>
+          <Divider sx={{marginLeft: "-1vw", marginTop: "1vh", marginBottom: "1vh"}} />
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Apply Telephone:</Typography>
+            <Typography>{job.apply_phone}</Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Typography fontWeight="bold">Apply Email:</Typography>
+            <Typography>{job.apply_email}</Typography>
+          </Stack>
+          <Button variant="contained" onClick={() => window.open(`https://seasonaljobs.dol.gov/jobs/${job.case_number}`,'_blank')} sx={{marginTop: "2vh", marginBottom: "2vh", marginRight: "50%", maxWidth: "30%"}}>More Info</Button>
         </Stack>
       :
       null
