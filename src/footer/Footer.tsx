@@ -6,7 +6,7 @@ function Footer() {
   return (
     <div className="footer">
       <div className="name-and-logo" onClick={() => window.open('https://github.com/puddleglum56','_blank')}>
-        <Typography>An app by Puddleglum</Typography>
+        <Typography>An app by</Typography>
         <img src={wemLogo} alt="WEM Logo" className="wem-logo" />
       </div>
     </div>
