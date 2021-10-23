@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setHours, setRequiredExperience, toggleAgricultural, toggleNonagricultural } from './AdvancedOptionsMenuSlice';
 
-export default function BasicMenu() {
+export default function AdvancedOptionsMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,9 +28,9 @@ export default function BasicMenu() {
   const  hours : number = useAppSelector((state) => state.advancedOptions.hours);
 
   return (
-    <div>
+    <>
       <Button
-        sx={{marginLeft: "15%", minWidth: "100%", border: "#C4C4C4 solid 1px"}}
+        sx={{marginLeft: "1vw", width: "12vw", border: "#C4C4C4 solid 1px"}}
         id="basic-button"
         aria-controls="basic-menu"
         aria-haspopup="true"
@@ -67,6 +67,6 @@ export default function BasicMenu() {
           </Stack>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }

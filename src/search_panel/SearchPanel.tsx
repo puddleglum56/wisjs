@@ -1,7 +1,7 @@
 import './SearchPanel.css';
 import SearchBar from '../search_bar/SearchBar';
-import BasicMenu from '../advanced_options_menu/AdvancedOptionsMenu';
-import { CircularProgress } from '@mui/material';
+import AdvancedOptionsMenu from '../advanced_options_menu/AdvancedOptionsMenu';
+import { CircularProgress, Typography } from '@mui/material';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import { useAppSelector } from '../hooks';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
@@ -24,11 +24,15 @@ function SearchPanel() {
   return (
     <div className="search-panel">
       <SearchBar />
-      <BasicMenu />
+      <AdvancedOptionsMenu />
       { searchQuery.isFetching ?
       <CircularProgress sx={{marginLeft: "5vw"}} />
       :
-      null }
+        (searchQuery.data ?
+        <Typography marginLeft="1vw" color="#1565C0">{`Displaying ${searchQuery.data.value.length} results.`}</Typography>
+        :
+        null)
+      }
       <img src={logoGrey} alt="logo" className="logo" />
     </div>
   );
