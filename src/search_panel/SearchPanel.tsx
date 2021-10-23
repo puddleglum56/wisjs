@@ -5,6 +5,7 @@ import { CircularProgress } from '@mui/material';
 import { SearchQueryArgs, useGetSeasonalJobsQuery } from '../searchApi';
 import { useAppSelector } from '../hooks';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
+import logoGrey from '../resources/logo_grey.svg'
 
 function SearchPanel() {
 
@@ -28,6 +29,7 @@ function SearchPanel() {
       <CircularProgress sx={{marginLeft: "5vw"}} />
       :
       null }
+      <img src={logoGrey} alt="logo" className="logo" />
     </div>
   );
 }

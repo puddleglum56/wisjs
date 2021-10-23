@@ -5,3 +5,12 @@
     padding: 1vh;
     border-bottom: #C4C4C4 1px solid;
 }
+
+.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 5vh;
+    margin-top: 1vh;
+    margin-right: 1vw;
+}

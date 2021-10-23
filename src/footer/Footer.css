@@ -3,4 +3,19 @@
     height: 18vh;
     background-color: whitesmoke;
     border-top: #C4C4C4 1px solid;
+    display: flex;
+    justify-content: center;
+    padding-top: 2vh;
+    color: #C4C4C4;
+}
+
+.name-and-logo {
+    display: flex;
+    cursor: pointer;
+}
+
+.wem-logo {
+    fill: #C4C4C4;
+    margin-left: 0.5vw;
+    height: 4vh;
 }
