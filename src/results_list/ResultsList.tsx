@@ -51,6 +51,10 @@ export default function ResultsList() {
     includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
     includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
     hours : useAppSelector((state) => state.advancedOptions.hours),
+    searchAll: useAppSelector((state) => state.searchBar.searchAll),
+    boundingLocation: useAppSelector((state) => state.advancedOptions.boundingLocation),
+    locationAll: useAppSelector((state) => state.advancedOptions.locationAll),
+    minimumWage: useAppSelector((state) => state.advancedOptions.minimumWage),
   }
 
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);

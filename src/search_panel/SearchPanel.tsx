@@ -17,9 +17,14 @@ function SearchPanel() {
     includeAgricultural : useAppSelector((state) => state.advancedOptions.agricultural),
     includeNonagricultural : useAppSelector((state) => state.advancedOptions.nonagricultural),
     hours : useAppSelector((state) => state.advancedOptions.hours),
+    searchAll : useAppSelector((state) => state.searchBar.searchAll),
+    boundingLocation: useAppSelector((state) => state.advancedOptions.boundingLocation),
+    locationAll: useAppSelector((state) => state.advancedOptions.locationAll),
+    minimumWage: useAppSelector((state) => state.advancedOptions.minimumWage),
   }
 
   const searchQuery = useGetSeasonalJobsQuery(searchQueryArgs.search ? searchQueryArgs : skipToken);
+  const resultsLength = searchQuery.data?.value.length;
 
   return (
     <div className="search-panel">
@@ -28,8 +33,8 @@ function SearchPanel() {
       { searchQuery.isFetching ?
       <CircularProgress sx={{marginLeft: "5vw"}} />
       :
-        (searchQuery.data ?
-        <Typography marginLeft="1vw" color="#1565C0">{`Displaying ${searchQuery.data.value.length} results.`}</Typography>
+        ((searchQuery.data && resultsLength) ?
+        <Typography marginLeft="1vw" color="#1565C0">{(resultsLength > 999) ? `Max results (${resultsLength}), try filtering.` : `Found ${resultsLength} results.`}</Typography>
         :
         null)
       }
