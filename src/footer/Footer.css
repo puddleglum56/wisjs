@@ -11,11 +11,11 @@
 
 .name-and-logo {
     display: flex;
-    cursor: pointer;
 }
 
 .wem-logo {
     fill: #C4C4C4;
     margin-left: 0.5vw;
     height: 4vh;
+    cursor: pointer;
 }

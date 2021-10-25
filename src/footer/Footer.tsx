@@ -5,9 +5,9 @@ import wemLogo from '../resources/wem_logo.svg';
 function Footer() {
   return (
     <div className="footer">
-      <div className="name-and-logo" onClick={() => window.open('https://github.com/puddleglum56','_blank')}>
-        <Typography>An app by</Typography>
-        <img src={wemLogo} alt="WEM Logo" className="wem-logo" />
+      <div className="name-and-logo">
+        <Typography>findseasonalvisas@gmail.com</Typography>
+        <img onClick={() => window.open('https://github.com/puddleglum56','_blank')} src={wemLogo} alt="WEM Logo" className="wem-logo" />
       </div>
     </div>
   );
