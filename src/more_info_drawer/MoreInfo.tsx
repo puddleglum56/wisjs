@@ -38,14 +38,13 @@ export default function MoreInfo() {
   return (
     <Drawer
       sx={{
-        width: drawerWidth,
         flexShrink: 1,
         borderLeft: "#C4C4C4 solid 1px",
         '& .MuiDrawer-paper': {
-          width: `${drawerWidth - 2}px`,
-          top: '55px',
           height: "auto",
           borderLeft: "none",
+          top: "inherit",
+          right: "inherit"
         },
       }}
       variant="persistent"

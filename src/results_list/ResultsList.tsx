@@ -64,7 +64,7 @@ export default function ResultsList() {
 
   return (
     <Box
-      sx={{ minWidth: listWidth, minHeight: listHeight, width: listWidth, height: listHeight, bgcolor: 'background.paper', borderRight: "#C4C4C4 solid 1px" }}
+      sx={{ minWidth: listWidth, minHeight: "84vh", width: listWidth, height: "84vh", bgcolor: 'background.paper', borderRight: "#C4C4C4 solid 1px" }}
     >
       {searchQuery.data ? (
           <FixedSizeList
