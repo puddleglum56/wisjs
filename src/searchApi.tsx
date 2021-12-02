@@ -19,7 +19,7 @@ export type SearchQueryArgs = {
 export const seasonalJobsSearchApi = createApi({
   reducerPath: 'seasonalJobsSearchApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://morning-tor-41184.herokuapp.com/https://seasonaljobs.dol.gov/datahub/search',
+    baseUrl: 'https://morning-tor-41184.herokuapp.com/https://api.seasonaljobs.dol.gov/datahub/search',
   }),
   endpoints: (builder) => ({
     getSeasonalJobs: builder.query<SeasonalJobSearchResponse, SearchQueryArgs>({
