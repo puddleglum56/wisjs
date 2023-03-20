@@ -37,7 +37,6 @@ export default function Map() {
   }
 
   return (
-    <div className="map">
       <div className="google-map" style={{width: drawerOpen ? "40vw" : "80vw"}}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyA-3X7TKl4j6TA0jrbvrDhTg4MiqUZbs7w'}}
@@ -53,6 +52,5 @@ export default function Map() {
           ) : null }
         </GoogleMapReact>
       </div>
-    </div>
   );
 }

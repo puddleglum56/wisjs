@@ -8,15 +8,15 @@ import SearchPanel from './search_panel/SearchPanel';
 function App() {
 
   return (
-    <>
+    <Stack direction="column" height="100vh">
       <SearchPanel />
-      <Stack direction="row" sx={{minWidth: "100%"}}>
+      <Stack direction="row" sx={{minWidth: "100%"}} flex={1}>
         <ResultsList />
         <Map />
         <MoreInfo />
       </Stack>
       <Footer />
-    </>
+    </Stack>
   );
 }
 

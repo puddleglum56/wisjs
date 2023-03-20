@@ -1,21 +1,22 @@
 .footer {
     width: 100%;
-    height: 18vh;
+    height: 5vh;
     background-color: whitesmoke;
     border-top: #C4C4C4 1px solid;
     display: flex;
     justify-content: center;
-    padding-top: 2vh;
     color: #C4C4C4;
 }
 
 .name-and-logo {
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .wem-logo {
     fill: #C4C4C4;
-    margin-left: 0.5vw;
-    height: 4vh;
+    margin-left: 1vw;
+    height: 2vh;
     cursor: pointer;
 }

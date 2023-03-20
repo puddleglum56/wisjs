@@ -38,7 +38,7 @@ export default function MoreInfo() {
   return (
     <Drawer
       sx={{
-        flexShrink: 1,
+        flex: open ? 0.6 : 0,
         borderLeft: "#C4C4C4 solid 1px",
         '& .MuiDrawer-paper': {
           height: "auto",
