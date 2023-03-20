@@ -19,12 +19,12 @@ export type SearchQueryArgs = {
 export const seasonalJobsSearchApi = createApi({
   reducerPath: 'seasonalJobsSearchApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://morning-tor-41184.herokuapp.com/https://api.seasonaljobs.dol.gov/datahub/search',
+    baseUrl: 'https://corsproxy.io/?https://api.seasonaljobs.dol.gov',
   }),
   endpoints: (builder) => ({
     getSeasonalJobs: builder.query<SeasonalJobSearchResponse, SearchQueryArgs>({
       query: (args: SearchQueryArgs) =>  ({
-        url: `?api-version=${args.version}`,
+        url: "/datahub/search",
         method: 'POST',
         body: {
           'search': args.searchAll ? '*' : `/.*${args.search}~.*/`,
@@ -40,6 +40,7 @@ export const seasonalJobsSearchApi = createApi({
           'facets': ['job_title, count:4, sort:count'],
           'orderby': 'search.score() desc',
         },
+        params: {"api-version": args.version}
       }),
     }),
   }),
