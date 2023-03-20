@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/wisjs/static/css/main.4aab8539.chunk.css",
-    "main.js": "/wisjs/static/js/main.9ddc4af8.chunk.js",
-    "main.js.map": "/wisjs/static/js/main.9ddc4af8.chunk.js.map",
+    "main.css": "/wisjs/static/css/main.440aa9be.chunk.css",
+    "main.js": "/wisjs/static/js/main.280697d0.chunk.js",
+    "main.js.map": "/wisjs/static/js/main.280697d0.chunk.js.map",
     "runtime-main.js": "/wisjs/static/js/runtime-main.1797a639.js",
     "runtime-main.js.map": "/wisjs/static/js/runtime-main.1797a639.js.map",
     "static/css/2.ca7f8cf0.chunk.css": "/wisjs/static/css/2.ca7f8cf0.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.1ce926ed.chunk.js.map": "/wisjs/static/js/3.1ce926ed.chunk.js.map",
     "index.html": "/wisjs/index.html",
     "static/css/2.ca7f8cf0.chunk.css.map": "/wisjs/static/css/2.ca7f8cf0.chunk.css.map",
-    "static/css/main.4aab8539.chunk.css.map": "/wisjs/static/css/main.4aab8539.chunk.css.map",
+    "static/css/main.440aa9be.chunk.css.map": "/wisjs/static/css/main.440aa9be.chunk.css.map",
     "static/js/2.7c63a972.chunk.js.LICENSE.txt": "/wisjs/static/js/2.7c63a972.chunk.js.LICENSE.txt",
     "static/media/logo_grey.abb7251d.svg": "/wisjs/static/media/logo_grey.abb7251d.svg",
     "static/media/wem_logo.cabc069f.svg": "/wisjs/static/media/wem_logo.cabc069f.svg"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.1797a639.js",
     "static/css/2.ca7f8cf0.chunk.css",
     "static/js/2.7c63a972.chunk.js",
-    "static/css/main.4aab8539.chunk.css",
-    "static/js/main.9ddc4af8.chunk.js"
+    "static/css/main.440aa9be.chunk.css",
+    "static/js/main.280697d0.chunk.js"
   ]
 }
